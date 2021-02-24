@@ -3,7 +3,7 @@ var tokenQueries = require('../server/db/queries/tokenQueries');
 
 class RegistrationService {
     getTokenSecret() {
-        return "super_secret_key!";
+        return process.env.PRIVATE_KEY || "super_secret_key!";
     }
 
     async register(notificationToken, authToken) {
