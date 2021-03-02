@@ -45,7 +45,7 @@ routes.post('/unregister', async ctx => {
     }
 })
 
-publicRoutes.post('/notify', async ctx => {
+publicRoutes.post('/internal/notify', async ctx => {
     try {
         console.log(ctx.request.body);
         ctx.body = {
