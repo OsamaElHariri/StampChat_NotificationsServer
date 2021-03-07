@@ -8,20 +8,20 @@ class RegistrationService {
 
     async register(notificationToken, authToken) {
         const payload = jwt.decode(authToken);
-        let token = await tokenQueries.getToken(payload.identity, notificationToken);
-        if (!token) {
-            [token] = await tokenQueries.addToken({
-                identity: payload.identity,
-                fcm_token: notificationToken,
-            });
-        }
+        await tokenQueries.removeFcmToken(payload.identity);
+
+        let token;
+        [token] = await tokenQueries.addToken({
+            identity: payload.identity,
+            fcm_token: notificationToken,
+        });
 
         return token;
     }
 
-    async unregister(notificationToken, authToken) {
+    async unregister(authToken) {
         const payload = jwt.decode(authToken);
-        await tokenQueries.removeFcmToken(payload.identity, notificationToken);
+        await tokenQueries.removeFcmToken(payload.identity);
 
         return true;
     }

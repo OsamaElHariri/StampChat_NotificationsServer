@@ -38,7 +38,7 @@ routes.post('/register', async ctx => {
 routes.post('/unregister', async ctx => {
     try {
         const authToken = ctx.get('Authorization').replace("Bearer ", "");
-        const token = await (new ResgistrationService()).unregister(ctx.request.body.token, authToken);
+        const token = await (new ResgistrationService()).unregister(authToken);
         ctx.body = token;
     } catch (error) {
         ctx.throw(400, "Error unregistering token")

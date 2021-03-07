@@ -1,10 +1,9 @@
 const knex = require('../connections');
 
-function getToken(identity, tokenString) {
+function getToken(identity) {
     return knex('tokens')
         .select('*')
         .where({
-            fcm_token: tokenString,
             identity: identity
         })
         .first();
@@ -22,11 +21,10 @@ function addToken(token) {
         .returning('*');
 }
 
-function removeFcmToken(identity, tokenString) {
+function removeFcmToken(identity) {
     return knex('tokens')
         .select('*')
         .where({
-            fcm_token: tokenString,
             identity: identity
         })
         .del();
